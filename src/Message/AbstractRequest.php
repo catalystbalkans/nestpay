@@ -71,11 +71,59 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $this->setParameter('installment', $value);
     }
 
+    public function getBillToName () {
+        return $this->getParameter('BillToName');
+    }
+
+    public function setBillToName($value) {
+        return $this->setParameter('BillToName', $value);
+    }
+
+    public function getBillToStreet1 () {
+        return $this->getParameter('BillToStreet1');
+    }
+
+    public function setBillToStreet1($value) {
+        return $this->setParameter('BillToStreet1', $value);
+    }
+
+    public function getBillToCity () {
+        return $this->getParameter('BillToCity');
+    }
+
+    public function setBillToCity($value) {
+        return $this->setParameter('BillToCity', $value);
+    }
+
+    public function getBillToCountry () {
+        return $this->getParameter('BillToCountry');
+    }
+
+    public function setBillToCountry($value) {
+        return $this->setParameter('BillToCountry', $value);
+    }
+
+    public function getCustomerTelephone() {
+        return $this->getParameter('CustomerTelephone');
+    }
+
+    public function setCustomerTelephone($value) {
+        return $this->setParameter('CustomerTelephone', $value);
+    }
+
+    public function getCustomerEmail() {
+        return $this->getParameter('CustomerEmail');
+    }
+
+    public function setCustomerEmail($value) {
+        return $this->setParameter('CustomerEmail', $value);
+    }
+
     public function getEndpoint()
     {
         $gateway = $this->getBank();
         if (!array_key_exists($gateway, $this->endpoints)) {
-            throw new \Exception('Banka geçerli değil');
+            throw new \Exception('Banka ne postoji.');
         }
         return $this->endpoints[$gateway];
     }
