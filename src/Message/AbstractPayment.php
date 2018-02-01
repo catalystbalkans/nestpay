@@ -7,12 +7,8 @@ abstract class AbstractPayment extends AbstractRequest
     protected $transactionType;
 
     protected $endpoints = [
-        'isbank' => 'https://spos.isbank.com.tr/servlet/est3Dgate',
-        'akbank' => 'https://www.sanalakpos.com/servlet/est3Dgate',
-        'finansbank' => 'https://www.fbwebpos.com/servlet/est3Dgate',
-        'halkbank' => 'https://sanalpos.halkbank.com.tr/servlet/est3Dgate',
-        'anadolubank' => 'https://anadolusanalpos.est.com.tr/servlet/est3Dgate',
-        'test' => 'https://entegrasyon.asseco-see.com.tr/fim/est3Dgate',
+        'test' => 'https://testsecurepay.eway2pay.com/fim/est3Dgate',
+		'production' => 'https://bib.eway2pay.com/fim/est3Dgate',
     ];
 
     protected $allowedCardBrands = [
@@ -26,43 +22,43 @@ abstract class AbstractPayment extends AbstractRequest
 
         $cardBrand = $this->getCard()->getBrand();
         if (!array_key_exists($cardBrand, $this->allowedCardBrands)) {
-            throw new InvalidCreditCardException('Kart geçerli değil, sadece Visa ya da MasterCard kullanılabilir');
+            throw new InvalidCreditCardException('Kartica nije dostupna, samo Visa ili MasterCard se mogu koristiti.');
         } 
 
         $data = array();
-        $data['pan'] = $this->getCard()->getNumber();
-        $data['cv2'] = $this->getCard()->getCvv();
-        $data['Ecom_Payment_Card_ExpDate_Year'] = $this->getCard()->getExpiryDate('y');
-        $data['Ecom_Payment_Card_ExpDate_Month'] = $this->getCard()->getExpiryDate('m');
-        $data['cardType'] = $this->allowedCardBrands[$cardBrand];
 
         $data['clientid'] = $this->getClientId();
         $data['oid'] = $this->getOrderId();
         $data['amount'] = $this->getAmount();
         $data['currency'] = $this->getCurrency();
-        $data['okUrl'] = $this->getReturnUrl();
-        $data['failUrl'] = $this->getCancelUrl();
-        $data['storetype'] = '3d_pay';
-        $data['rnd'] = time();
-        $data['firmaadi'] = $this->getFirmName();
-        $data['islemtipi'] = $this->transactionType;
-        
-        $data['taksit'] = null;
-        if ($installment = $this->getInstallment()) {
-            $data['taksit'] = $installment;
-        }
+        $data['okUrl'] = str_replace("|", "\\|", str_replace("\\", "\\\\", $this->getReturnUrl()));
+        $data['failUrl'] = str_replace("|", "\\|", str_replace("\\", "\\\\", $this->getCancelUrl()));
+        $data['storetype'] = '3d_pay_hosting';
+		$data['lang']='sr';
+		$data['hashAlgorithm']='ver2';
+		$data['rnd'] = time();
+		$data['trantype'] = $this->transactionType;
 
-        $signature =    $data['clientid'].
-                        $data['oid'].
-                        $data['amount'].
-                        $data['okUrl'].
-                        $data['failUrl'].
-                        $data['islemtipi'].
-                        $data['taksit'].
-                        $data['rnd'].
+		$data['BillToName'] = $this->getBillToName();
+		$data['BillToStreet1'] = $this->getBillToStreet1();
+		$data['BillToCity'] = $this->getBillToCity();
+		$data['BillToCountry'] = $this->getBillToCountry();
+		$data['tel'] = $this->getCustomerTelephone();
+		$data['email'] = $this->getCustomerEmail();
+	
+		$separator = "|";
+        $signature =    $data['clientid'].$separator.
+                        $data['oid'].$separator.
+                        $data['amount'].$separator.
+                        $data['okUrl'].$separator.
+                        $data['failUrl'].$separator.
+                        $data['trantype'].$separator.
+                        $separator.
+                        $data['rnd'].$separator.
+			$separator.$separator.$separator.
+			$data['currency'].$separator.
                         $this->getStoreKey();
-
-        $data['hash'] = base64_encode(pack('H*', sha1($signature)));
+		$data['hash'] = base64_encode(pack('H*', hash('sha512',$signature)));
         return $data;
     }
 
