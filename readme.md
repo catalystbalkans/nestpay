@@ -12,8 +12,17 @@
  * Banca Intesa Beograd
  * ..
  
-## Instalacija / Kurulum
+## Instalacija
     composer require catalystbalkans/nestpay
+	
+## Upotreba
+
+	use Omnipay\Omnipay;
+
+	$gateway = Omnipay::create('Nestpay');
+	$gateway->setBank('test');
+	$gateway->setClientId('clientid');
+	$gateway->setStoreKey('storekey');
     
 ## Dokumentacija
 [Wiki](https://github.com/catalystbalkans/nestpay/wiki)
@@ -26,3 +35,4 @@
  * BKM Express https://github.com/yasinkuyu/omnipay-bkm
 
 ## TODO
+* Skloniti nepotrebno ubacivanje podataka o kartici za određene transakcije jer se to odrađuje na serveru banke
