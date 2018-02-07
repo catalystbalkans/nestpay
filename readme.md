@@ -1,36 +1,28 @@
 # Omnipay: NestPay 3D_Pay
-[thephpleague/omnipay](https://github.com/thephpleague/omnipay) ödeme altyapsı için hazırlanmış NestPay kütüphanesi.
+[thephpleague/omnipay](https://github.com/thephpleague/omnipay) NestPay biblioteka za obradu plaćanja.
 
-### İçindeki metodlar:
- * **Purchase** (*Auth*: Satış)
- * **Authorize** (*PreAuth*: Ön Otorizasyon)
- * **Capture** (*PostAuth*: Otorizasyon Kapatma)
- * **Void** (*Void*: İptal)
- * **Refund** (*Credit*: İade)
+### Metodi:
+ * **Purchase** (*Auth*: Sale Prodaja)
+ * **Authorize** (*PreAuth*: Preautorizacija)
+ * **Capture** (*PostAuth*: Zatvaranje autorizacije)
+ * **Void** (*Void*: Poništavanje transakcije)
+ * **Refund** (*Credit*: Povraćaj)
 
-### NestPay (EST) alt yapsını kullanan bankalar:
- * İş Bankası
- * Akbank
- * Finansbank
- * Halkbank
- * Anadolubank
+### NestPay 3D_Pay podržavaju sledeće banke:
+ * Banca Intesa Beograd
  * ..
  
-## Kurulum
-    composer require mstfsnc/nestpay
+## Instalacija / Kurulum
+    composer require catalystbalkans/nestpay
     
-## Kullanım
-[Wiki](https://github.com/mstfsnc/nestpay/wiki) sayfasını ziyaret edin
+## Dokumentacija
+[Wiki](https://github.com/catalystbalkans/nestpay/wiki)
 
-## Yardım
-[Issues](https://github.com/mstfsnc/nestpay/issues) sayfasından takip edebilirsiniz
-
-## Diğer Omnipay Paketleri
+## Drugi Omnipay paketi
  * NestPay (CC5) https://github.com/yasinkuyu/omnipay-nestpay
  * Postnet https://github.com/yasinkuyu/omnipay-posnet
  * Iyzico https://github.com/yasinkuyu/omnipay-iyzico
  * GVP (Granti Sanal Pos) https://github.com/yasinkuyu/omnipay-gvp
  * BKM Express https://github.com/yasinkuyu/omnipay-bkm
 
-## Yapılacaklar
- * Belirli bir tutarı iade etme
+## TODO

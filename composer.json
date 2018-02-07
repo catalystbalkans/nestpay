@@ -1,16 +1,20 @@
 {
-    "name": "mstfsnc/nestpay",
+    "name": "catalystbalkans/nestpay",
     "type": "library",
-    "description": "Omnipay için Nestpay 3D_Pay kütüphanesi",
+    "description": "Nestpay 3D_Pay library for Omnipay",
     "keywords": [
         "omnipay",
         "nestpay"
     ],
-    "homepage": "https://github.com/mstfsnc/nestpay",
+    "homepage": "https://github.com/catalystbalkans/nestpay",
     "license": "MIT",
     "authors": [
         {
             "name": "Mustafa Sancu",
+            "email": "mstfsnc@gmail.com"
+        },
+		{
+            "name": "Djordje Marjanovic",
             "email": "mstfsnc@gmail.com"
         }
     ],
